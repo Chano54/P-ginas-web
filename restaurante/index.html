@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sazón de Casa · Página de ejemplo para restaurantes</title>
+<meta name="description" content="Página de ejemplo: así se vería la web de tu restaurante, con tu carta, fotos de tus platos y pedidos por WhatsApp.">
+<style>
+  :root{
+    --rojo:#c0392b; --rojo-osc:#7d1f14; --mostaza:#f4b63f; --crema:#fbf4e8;
+    --negro:#1b120d; --cafe:#3a2418; --gris:#7a6a5f; --radio:22px;
+    --wa:https://wa.me/51925595874;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--cafe);background:var(--crema);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1150px;margin:0 auto;padding:0 20px}
+  .serif{font-family:Georgia,"Times New Roman",serif}
+
+  .demo{background:var(--negro);color:#f7e6c8;text-align:center;font-size:.85rem;padding:8px 12px;position:relative;z-index:30}
+  .demo a{color:var(--mostaza);font-weight:600;text-decoration:underline}
+
+  header{position:sticky;top:0;z-index:25;transition:.3s;background:rgba(27,18,13,.0)}
+  header.solido{background:rgba(27,18,13,.92);backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,.25)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;color:#fff}
+  .logo{font-family:Georgia,serif;font-size:1.6rem;font-weight:700;color:var(--mostaza)}
+  .logo span{color:#fff;font-style:italic;font-weight:400}
+  nav ul{display:flex;gap:28px;list-style:none;font-size:.95rem}
+  nav a{opacity:.85}
+  nav a:hover{opacity:1;color:var(--mostaza)}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--rojo);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;transition:.25s;box-shadow:0 8px 20px rgba(192,57,43,.35)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(192,57,43,.45)}
+  .btn.amarillo{background:var(--mostaza);color:var(--negro);box-shadow:0 8px 20px rgba(244,182,63,.35)}
+  .btn.linea{background:transparent;border:2px solid rgba(255,255,255,.7);box-shadow:none}
+
+  /* ===== HERO 3D ===== */
+  .hero{position:relative;margin-top:-70px;padding:140px 0 90px;color:#fff;overflow:hidden;
+    background:radial-gradient(ellipse at 70% 40%,#5a2516 0%,#2a1710 45%,var(--negro) 80%)}
+  .hero::before{content:"";position:absolute;inset:0;background:url("img/lomo.jpg") center/cover;opacity:.12;filter:blur(6px);transform:scale(1.1)}
+  .hero .grid2{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+  .etiqueta{display:inline-block;background:rgba(244,182,63,.15);color:var(--mostaza);border:1px solid rgba(244,182,63,.4);padding:6px 14px;border-radius:999px;font-size:.85rem;margin-bottom:18px}
+  .hero h1{font-family:Georgia,serif;font-size:clamp(2.3rem,5.4vw,4rem);line-height:1.05}
+  .hero h1 em{color:var(--mostaza);font-style:italic}
+  .hero p{font-size:1.15rem;opacity:.85;margin:20px 0 32px;max-width:500px}
+  .acciones{display:flex;gap:14px;flex-wrap:wrap}
+
+  .escena{height:460px;perspective:1100px;display:grid;place-items:center}
+  .anillo{position:relative;width:200px;height:200px;transform-style:preserve-3d;animation:girar 24s linear infinite}
+  .escena:hover .anillo{animation-play-state:paused}
+  .anillo .plato{position:absolute;inset:0;border-radius:50%;overflow:hidden;
+    border:6px solid #fff;box-shadow:0 25px 50px rgba(0,0,0,.5);backface-visibility:hidden}
+  .anillo .plato img{width:100%;height:100%;object-fit:cover}
+  @keyframes girar{from{transform:rotateX(-12deg) rotateY(0)}to{transform:rotateX(-12deg) rotateY(-360deg)}}
+  .sombra-piso{position:absolute;bottom:40px;width:70%;height:40px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.55),transparent 70%);filter:blur(6px)}
+
+  .datos{position:relative;display:flex;gap:34px;flex-wrap:wrap;margin-top:40px}
+  .datos div b{display:block;font-size:1.6rem;color:var(--mostaza);font-family:Georgia,serif}
+  .datos div span{font-size:.85rem;opacity:.75}
+
+  /* ===== cinta ===== */
+  .cinta{background:var(--mostaza);color:var(--negro);overflow:hidden;white-space:nowrap;padding:14px 0;font-weight:700;letter-spacing:.5px}
+  .cinta .mover{display:inline-block;animation:cinta 28s linear infinite}
+  .cinta span{margin:0 26px}
+  @keyframes cinta{to{transform:translateX(-50%)}}
+
+  section{padding:90px 0}
+  .titulo{text-align:center;margin-bottom:46px}
+  .titulo small{color:var(--rojo);font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.8rem}
+  .titulo h2{font-family:Georgia,serif;font-size:clamp(1.9rem,3.6vw,2.8rem);color:var(--negro);margin-top:6px}
+  .titulo p{color:var(--gris);margin-top:8px}
+
+  /* ===== carta con tarjetas 3D ===== */
+  .tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:34px}
+  .tab{border:2px solid var(--rojo);color:var(--rojo);background:transparent;padding:9px 20px;border-radius:999px;font-weight:600;cursor:pointer;font-size:.95rem;font-family:inherit;transition:.2s}
+  .tab.activo,.tab:hover{background:var(--rojo);color:#fff}
+  .carta{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px;perspective:1000px}
+  .tarjeta{background:#fff;border-radius:var(--radio);overflow:hidden;box-shadow:0 10px 30px rgba(58,36,24,.10);
+    transform-style:preserve-3d;transition:transform .15s ease-out, box-shadow .3s;will-change:transform}
+  .tarjeta:hover{box-shadow:0 30px 50px rgba(58,36,24,.22)}
+  .tarjeta .foto{position:relative;aspect-ratio:4/3;overflow:hidden}
+  .tarjeta .foto img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .tarjeta:hover .foto img{transform:scale(1.08)}
+  .tarjeta .precio{position:absolute;right:14px;bottom:14px;background:var(--mostaza);color:var(--negro);font-weight:800;padding:6px 14px;border-radius:999px;transform:translateZ(40px);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+  .tarjeta .txt{padding:18px 20px 22px;transform:translateZ(25px)}
+  .tarjeta h3{font-family:Georgia,serif;font-size:1.25rem;color:var(--negro)}
+  .tarjeta p{color:var(--gris);font-size:.92rem;margin-top:4px}
+  .tarjeta .pedir{display:inline-block;margin-top:12px;color:var(--rojo);font-weight:700;font-size:.92rem}
+  .oculto{display:none}
+
+  /* ===== plato estrella (tarjeta que gira) ===== */
+  .estrella{background:var(--negro);color:#fff}
+  .estrella .titulo h2{color:#fff}
+  .estrella .titulo p{color:#cbb8a6}
+  .estrella .grid2{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .giro{perspective:1400px;height:420px;cursor:pointer}
+  .giro-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+  .giro:hover .giro-in,.giro.volteado .giro-in{transform:rotateY(180deg)}
+  .cara{position:absolute;inset:0;border-radius:var(--radio);overflow:hidden;backface-visibility:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  .cara img{width:100%;height:100%;object-fit:cover}
+  .cara.atras{transform:rotateY(180deg);background:linear-gradient(135deg,var(--rojo),var(--rojo-osc));padding:40px;display:flex;flex-direction:column;justify-content:center}
+  .cara.atras h3{font-family:Georgia,serif;font-size:2rem}
+  .cara.atras ul{list-style:none;margin:18px 0}
+  .cara.atras li{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.2)}
+  .pista{font-size:.85rem;color:#cbb8a6;text-align:center;margin-top:12px}
+  .estrella .lista p{color:#d9c8b8;margin:14px 0 24px;font-size:1.05rem}
+  .estrella h3.grande{font-family:Georgia,serif;font-size:clamp(1.8rem,3.4vw,2.6rem)}
+  .estrella .precio-g{font-family:Georgia,serif;font-size:2.4rem;color:var(--mostaza);font-weight:700}
+
+  /* ===== menu del dia ===== */
+  .menu-caja{max-width:860px;margin:0 auto;background:#fff;border-radius:var(--radio);overflow:hidden;display:grid;grid-template-columns:1fr 1.2fr;box-shadow:0 20px 50px rgba(58,36,24,.12)}
+  .menu-caja .foto{min-height:100%}
+  .menu-caja .foto img{width:100%;height:100%;object-fit:cover}
+  .menu-caja .info{padding:34px}
+  .precio-grande{font-size:2.8rem;font-weight:800;color:var(--rojo);font-family:Georgia,serif;line-height:1}
+  .menu-caja h4{color:var(--rojo-osc);margin:18px 0 6px}
+  .menu-caja li{list-style:none;padding:5px 0;border-bottom:1px dashed #ecdcc3}
+
+  /* ===== pasos ===== */
+  .pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+  .paso{background:#fff;border-radius:var(--radio);padding:30px;text-align:center;box-shadow:0 10px 26px rgba(58,36,24,.07)}
+  .paso .num{width:54px;height:54px;border-radius:50%;background:var(--mostaza);display:grid;place-items:center;font-weight:800;margin:0 auto 14px;font-size:1.3rem;color:var(--negro)}
+  .paso h3{color:var(--rojo-osc)}
+  .paso p{color:var(--gris);font-size:.95rem}
+
+  /* ===== contacto ===== */
+  .contacto .caja{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .info-c{background:var(--negro);color:#fff;border-radius:var(--radio);padding:36px}
+  .info-c h3{font-family:Georgia,serif;font-size:1.5rem;margin-bottom:18px}
+  .dato{display:flex;gap:12px;margin-bottom:16px}
+  .dato b{display:block;color:var(--mostaza)}
+  .horario{width:100%;border-collapse:collapse;margin-top:6px;font-size:.95rem}
+  .horario td{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+  .horario td:last-child{text-align:right}
+  .mapa{border-radius:var(--radio);overflow:hidden;min-height:340px;background:#efe3cf}
+  .mapa iframe{width:100%;height:100%;min-height:340px;border:0}
+
+  .cta{position:relative;color:#fff;text-align:center;border-radius:var(--radio);padding:70px 24px;margin:0 20px;overflow:hidden;
+    background:linear-gradient(rgba(125,31,20,.85),rgba(27,18,13,.88)),url("img/ceviche.jpg") center/cover}
+  .cta h2{font-family:Georgia,serif;font-size:clamp(1.8rem,3.4vw,2.6rem)}
+  .cta p{opacity:.9;margin:10px 0 26px}
+
+  footer{text-align:center;color:var(--gris);font-size:.88rem;padding:40px 20px}
+  footer a{text-decoration:underline}
+  details{max-width:800px;margin:14px auto 0;font-size:.78rem;text-align:left}
+  details summary{cursor:pointer;text-align:center}
+  details li{margin:4px 0 0 18px}
+
+  .flotante{position:fixed;right:20px;bottom:20px;background:#25d366;color:#fff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;box-shadow:0 10px 26px rgba(0,0,0,.3);z-index:20;animation:latido 2.4s infinite}
+  .flotante svg{width:32px;height:32px;fill:#fff}
+  @keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+  .aparece{opacity:0;transform:translateY(40px) rotateX(10deg);transition:1s cubic-bezier(.2,.8,.2,1)}
+  .aparece.visto{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    nav ul{display:none}
+    .hero{padding:120px 0 60px}
+    .hero .grid2,.estrella .grid2,.contacto .caja,.menu-caja{grid-template-columns:1fr}
+    .escena{height:320px;order:-1}
+    .anillo{width:120px;height:120px}
+    .menu-caja .foto{height:220px}
+    .giro{height:340px}
+    section{padding:64px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .anillo,.cinta .mover,.flotante{animation:none}
+    .aparece{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo">Página de ejemplo · Así se vería la página de tu restaurante, con tu nombre, tus platos y tus precios · <a href="https://wa.me/51925595874?text=Hola%20Luciano%2C%20vi%20la%20p%C3%A1gina%20de%20ejemplo%20para%20restaurantes%20y%20quiero%20una%20para%20mi%20negocio">Quiero una así</a></div>
+
+<header id="cabecera">
+  <div class="wrap nav">
+    <a href="#inicio" class="logo">Sazón <span>de Casa</span></a>
+    <nav><ul>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="#estrella">Plato estrella</a></li>
+      <li><a href="#menu">Menú del día</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul></nav>
+    <a class="btn" href="#pedir">Pedir ahora</a>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap grid2">
+    <div>
+      <span class="etiqueta">🔥 Comida criolla hecha al momento</span>
+      <h1>El sabor de casa, <em>a la vuelta</em> de tu casa</h1>
+      <p>Lomo saltado, ceviche, ají de gallina y menú del día. Pide por WhatsApp en un minuto y recógelo caliente o te lo llevamos.</p>
+      <div class="acciones">
+        <a class="btn amarillo" href="#pedir">💬 Pedir por WhatsApp</a>
+        <a class="btn linea" href="#carta">Ver la carta</a>
+      </div>
+      <div class="datos">
+        <div><b>+15</b><span>platos en la carta</span></div>
+        <div><b>S/ 12</b><span>menú del día</span></div>
+        <div><b>Yape</b><span>y Plin aceptados</span></div>
+      </div>
+    </div>
+    <div class="escena" id="escena">
+      <div class="anillo" id="anillo">
+        <div class="plato"><img src="img/lomo.jpg" alt="Lomo saltado"></div>
+        <div class="plato"><img src="img/ceviche.jpg" alt="Ceviche"></div>
+        <div class="plato"><img src="img/aji.jpg" alt="Ají de gallina"></div>
+        <div class="plato"><img src="img/arroz-pollo.jpg" alt="Arroz con pollo"></div>
+        <div class="plato"><img src="img/mariscos.jpg" alt="Arroz con mariscos"></div>
+        <div class="plato"><img src="img/anticuchos.jpg" alt="Anticuchos"></div>
+      </div>
+      <div class="sombra-piso"></div>
+    </div>
+  </div>
+</section>
+
+<div class="cinta" aria-hidden="true"><div class="mover">
+  <span>🛵 DELIVERY EN LA ZONA</span><span>🥡 PARA LLEVAR</span><span>💳 YAPE · PLIN · EFECTIVO</span><span>🍽️ ALMUERZO Y CENA</span><span>⭐ HECHO AL MOMENTO</span>
+  <span>🛵 DELIVERY EN LA ZONA</span><span>🥡 PARA LLEVAR</span><span>💳 YAPE · PLIN · EFECTIVO</span><span>🍽️ ALMUERZO Y CENA</span><span>⭐ HECHO AL MOMENTO</span>
+</div></div>
+
+<section id="carta">
+  <div class="wrap">
+    <div class="titulo aparece">
+      <small>Nuestra carta</small>
+      <h2>Platos que dan ganas de volver</h2>
+      <p>Pasa el mouse (o el dedo) por los platos</p>
+    </div>
+    <div class="tabs">
+      <button class="tab activo" data-cat="fondos">Platos de fondo</button>
+      <button class="tab" data-cat="marinos">Marinos</button>
+      <button class="tab" data-cat="criollos">Criollos y bebidas</button>
+    </div>
+
+    <div class="carta" data-grupo="fondos">
+      <div class="tarjeta"><div class="foto"><img src="img/lomo.jpg" alt="Lomo saltado" loading="lazy"><span class="precio">S/ 25</span></div><div class="txt"><h3>Lomo saltado</h3><p>Lomo al wok con cebolla, tomate, papas fritas y arroz.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+      <div class="tarjeta"><div class="foto"><img src="img/aji.jpg" alt="Ají de gallina" loading="lazy"><span class="precio">S/ 18</span></div><div class="txt"><h3>Ají de gallina</h3><p>Cremoso, con arroz, huevo y aceituna.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+      <div class="tarjeta"><div class="foto"><img src="img/arroz-pollo.jpg" alt="Arroz con pollo" loading="lazy"><span class="precio">S/ 17</span></div><div class="txt"><h3>Arroz con pollo</h3><p>Con papa a la huancaína y salsa criolla.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+      <div class="tarjeta"><div class="foto"><img src="img/tallarines.jpg" alt="Tallarines verdes" loading="lazy"><span class="precio">S/ 22</span></div><div class="txt"><h3>Tallarines verdes</h3><p>Al pesto criollo, con bistec apanado.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+    </div>
+
+    <div class="carta oculto" data-grupo="marinos">
+      <div class="tarjeta"><div class="foto"><img src="img/ceviche.jpg" alt="Ceviche" loading="lazy"><span class="precio">S/ 24</span></div><div class="txt"><h3>Ceviche de pescado</h3><p>Pescado del día, limón, camote y choclo.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+      <div class="tarjeta"><div class="foto"><img src="img/mariscos.jpg" alt="Arroz con mariscos" loading="lazy"><span class="precio">S/ 28</span></div><div class="txt"><h3>Arroz con mariscos</h3><p>Bien cargado, con salsa criolla.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+    </div>
+
+    <div class="carta oculto" data-grupo="criollos">
+      <div class="tarjeta"><div class="foto"><img src="img/anticuchos.jpg" alt="Anticuchos" loading="lazy"><span class="precio">S/ 16</span></div><div class="txt"><h3>Anticuchos</h3><p>De corazón, a la parrilla, con papa y choclo.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+      <div class="tarjeta"><div class="foto"><img src="img/seco.jpg" alt="Seco con frejoles" loading="lazy"><span class="precio">S/ 18</span></div><div class="txt"><h3>Seco con frejoles</h3><p>Al culantro, con arroz y frejoles.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+      <div class="tarjeta"><div class="foto"><img src="img/chicha.jpg" alt="Chicha morada" loading="lazy"><span class="precio">S/ 10</span></div><div class="txt"><h3>Chicha morada</h3><p>Jarra de 1 litro, hecha en casa.</p><a class="pedir" href="#pedir">Pedir →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="estrella" id="estrella">
+  <div class="wrap">
+    <div class="titulo aparece">
+      <small style="color:var(--mostaza)">El favorito</small>
+      <h2>Nuestro plato estrella</h2>
+      <p>Toca la foto para darle la vuelta</p>
+    </div>
+    <div class="grid2">
+      <div>
+        <div class="giro" id="giro">
+          <div class="giro-in">
+            <div class="cara"><img src="img/lomo.jpg" alt="Lomo saltado"></div>
+            <div class="cara atras">
+              <h3>Lomo saltado</h3>
+              <ul>
+                <li>🥩 Lomo fino al wok</li>
+                <li>🧅 Cebolla y tomate al punto</li>
+                <li>🍟 Papas fritas crocantes</li>
+                <li>🍚 Arroz graneado</li>
+              </ul>
+              <a class="btn amarillo" href="#pedir" style="align-self:flex-start">Lo quiero</a>
+            </div>
+          </div>
+        </div>
+        <p class="pista">↻ Pasa el mouse o toca la foto</p>
+      </div>
+      <div class="lista aparece">
+        <h3 class="grande">Lomo saltado al fuego vivo</h3>
+        <p>El plato que más piden nuestros clientes. Lo hacemos al momento, al wok y bien jugoso, con papas fritas recién hechas y arroz graneado.</p>
+        <div class="precio-g">S/ 25</div>
+        <div style="margin-top:22px"><a class="btn" href="#pedir">💬 Pedir por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="titulo aparece">
+      <small>De lunes a sábado</small>
+      <h2>Menú del día</h2>
+      <p>Se actualiza todos los días</p>
+    </div>
+    <div class="menu-caja aparece">
+      <div class="foto"><img src="img/seco.jpg" alt="Seco con frejoles" loading="lazy"></div>
+      <div class="info">
+        <div class="precio-grande">S/ 12</div>
+        <p style="color:var(--gris)">Entrada + segundo + refresco</p>
+        <h4>Entradas</h4>
+        <ul><li>Sopa de casa</li><li>Papa a la huancaína</li><li>Ensalada fresca</li></ul>
+        <h4>Segundos</h4>
+        <ul><li>Seco de pollo con frejoles</li><li>Pescado frito con arroz</li><li>Estofado de carne</li></ul>
+        <div style="margin-top:20px"><a class="btn" href="#pedir">Pedir mi menú</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pedir" style="padding-top:0">
+  <div class="wrap">
+    <div class="titulo aparece">
+      <small>Sin apps, sin comisiones</small>
+      <h2>Pide en 3 pasos</h2>
+    </div>
+    <div class="pasos">
+      <div class="paso aparece"><div class="num">1</div><h3>Elige tu plato</h3><p>Mira la carta o el menú del día.</p></div>
+      <div class="paso aparece"><div class="num">2</div><h3>Escríbenos</h3><p>Mándanos tu pedido y tu dirección por WhatsApp.</p></div>
+      <div class="paso aparece"><div class="num">3</div><h3>Disfruta</h3><p>Te lo llevamos caliente o lo recoges en el local.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:34px">
+      <a class="btn" href="https://wa.me/51925595874?text=Hola%20Luciano%2C%20vi%20la%20p%C3%A1gina%20de%20ejemplo%20para%20restaurantes%20y%20quiero%20una%20para%20mi%20negocio">💬 Pedir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto" style="padding-top:0">
+  <div class="wrap caja">
+    <div class="info-c">
+      <h3>Visítanos</h3>
+      <div class="dato"><span>📍</span><div><b>Dirección</b>Aquí va la dirección de tu restaurante</div></div>
+      <div class="dato"><span>📱</span><div><b>WhatsApp</b>Aquí va tu número</div></div>
+      <table class="horario">
+        <tr><td>Lunes a sábado</td><td>12:00 p.m. – 10:00 p.m.</td></tr>
+        <tr><td>Domingo</td><td>12:00 p.m. – 5:00 p.m.</td></tr>
+      </table>
+    </div>
+    <div class="mapa">
+      <iframe loading="lazy" title="Mapa" src="https://www.google.com/maps?q=Ate,+Lima,+Peru&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<div class="cta aparece">
+  <h2>¿Ya es hora de almorzar?</h2>
+  <p>Escríbenos y tu pedido sale en minutos.</p>
+  <a class="btn amarillo" href="#pedir">Hacer mi pedido</a>
+</div>
+
+<footer>
+  Página de ejemplo hecha por Luciano Delgado · ¿Quieres una para tu negocio? <a href="https://wa.me/51925595874?text=Hola%20Luciano%2C%20vi%20la%20p%C3%A1gina%20de%20ejemplo%20para%20restaurantes%20y%20quiero%20una%20para%20mi%20negocio">Escríbeme por WhatsApp</a>
+  <details>
+    <summary>Créditos de las fotos</summary>
+    <ul id="creditos">
+      <li>lomo: <a href="https://commons.wikimedia.org/wiki/File:Lomo-saltado-perudelights.jpg">Lomo-saltado-perudelights.jpg</a>, WikiHes, CC BY-SA 4.0</li>
+      <li>aji: <a href="https://commons.wikimedia.org/wiki/File:Aji_de_gallina_10.jpg">Aji de gallina 10.jpg</a>, ta@keshi kimi, CC BY 2.0</li>
+      <li>ceviche: <a href="https://commons.wikimedia.org/wiki/File:Ceviche_de_Per%C3%BA_CM001.jpg">Ceviche de Perú CM001.jpg</a>, Juan Carlos Fonseca Mata, CC BY-SA 4.0</li>
+      <li>arroz-pollo: <a href="https://commons.wikimedia.org/wiki/File:Arroz_pollo_huancaina_Restaurante_Pe_de_Pisco_-.jpg">Arroz pollo huancaina Restaurante Pe de Pisco -.jpg</a>, Mover el Bigote, CC BY 2.0</li>
+      <li>tallarines: <a href="https://commons.wikimedia.org/wiki/File:Tallarines_verdes.jpg">Tallarines verdes.jpg</a>, Miguel Alan Córdova Silva, CC BY-SA 4.0</li>
+      <li>mariscos: <a href="https://commons.wikimedia.org/wiki/File:Arroz_con_mariscos_002.jpg">Arroz con mariscos 002.jpg</a>, Wilfredor, CC0</li>
+      <li>chicha: <a href="https://commons.wikimedia.org/wiki/File:Chicha_Morada_2017.jpg">Chicha Morada 2017.jpg</a>, young shanahan from Bogotá, Colombia, CC BY 2.0</li>
+      <li>seco: <a href="https://commons.wikimedia.org/wiki/File:Seco_y_frejoles.jpg">Seco y frejoles.jpg</a>, MiguelAlanCS, CC BY-SA 4.0</li>
+      <li>anticuchos: <a href="https://commons.wikimedia.org/wiki/File:Anticucho_del_Per%C3%BA.JPG">Anticucho del Perú.JPG</a>, ver autor en Wikimedia Commons, CC BY-SA 3.0 (recortada)</li>
+    </ul>
+  </details>
+</footer>
+
+<a class="flotante" href="#pedir" aria-label="Pedir por WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.6 3 15.6c0 2.5.8 4.9 2.1 6.9L3.7 28l5.7-1.5c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.6 13-12.6S23.2 3 16 3zm0 22.9c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.4.9.9-3.2-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.8C5.5 10 10.2 5.4 16 5.4s10.5 4.6 10.5 10.3S21.8 25.9 16 25.9zm5.8-7.7c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1c-.3-.2-1.3-.5-2.5-1.5-.9-.8-1.6-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.3c.2.2 2.4 3.6 5.8 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg></a>
+
+<script>
+  // Anillo 3D: reparte los platos en círculo
+  (function(){
+    var platos=document.querySelectorAll('#anillo .plato');
+    function armar(){
+      var r=window.innerWidth<860?145:290;
+      platos.forEach(function(p,i){p.style.transform='rotateY('+(i*360/platos.length)+'deg) translateZ('+r+'px)';});
+    }
+    armar(); window.addEventListener('resize',armar);
+    // la escena se inclina con el mouse
+    var esc=document.getElementById('escena');
+    document.querySelector('.hero').addEventListener('mousemove',function(e){
+      var x=(e.clientX/window.innerWidth-.5)*16, y=(e.clientY/window.innerHeight-.5)*-10;
+      esc.style.transform='rotateX('+y+'deg) rotateY('+x+'deg)';
+    });
+  })();
+
+  // Tarjetas con efecto 3D al pasar el mouse o el dedo
+  document.querySelectorAll('.tarjeta').forEach(function(t){
+    function mover(x,y){
+      var r=t.getBoundingClientRect(), px=(x-r.left)/r.width-.5, py=(y-r.top)/r.height-.5;
+      t.style.transform='rotateY('+(px*18)+'deg) rotateX('+(-py*18)+'deg) scale(1.03)';
+    }
+    t.addEventListener('mousemove',function(e){mover(e.clientX,e.clientY)});
+    t.addEventListener('touchmove',function(e){var k=e.touches[0];mover(k.clientX,k.clientY)},{passive:true});
+    ['mouseleave','touchend'].forEach(function(ev){t.addEventListener(ev,function(){t.style.transform='';})});
+  });
+
+  // Pestañas de la carta
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('activo')});
+      t.classList.add('activo');
+      document.querySelectorAll('[data-grupo]').forEach(function(g){g.classList.toggle('oculto',g.dataset.grupo!==t.dataset.cat);});
+    });
+  });
+
+  // Plato estrella: girar al tocar (celular)
+  document.getElementById('giro').addEventListener('click',function(){this.classList.toggle('volteado')});
+
+  // Cabecera sólida al bajar
+  var cab=document.getElementById('cabecera');
+  window.addEventListener('scroll',function(){cab.classList.toggle('solido',window.scrollY>40)});
+
+  // Aparecer al hacer scroll
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visto');io.unobserve(e.target);}})},{threshold:.15});
+  document.querySelectorAll('.aparece').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
